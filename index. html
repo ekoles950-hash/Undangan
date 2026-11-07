@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan - Yesheka & Ali</title>
+
+<style>
+:root {
+  --countdown-top: 50%;
+  --countdown-left: 50%;
+  --countdown-width: 85%;
+
+  --instagram-top: 88%;
+  --rsvp-top: 50%;
+  --location-top: 70%;
+  --gallery-top: 50%;
+
+  --text-color: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #111;
+  font-family: Georgia, serif;
+  overflow-x: hidden;
+}
+
+.slide {
+  width: 100%;
+  height: 100svh;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: #222;
+}
+
+#invitation {
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+#invitation::-webkit-scrollbar {
+  display: none;
+}
+
+.video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+}
+
+/* SLIDE 1 */
+.guest-box {
+  color: white;
+  text-shadow: 0 2px 8px #000;
+}
+
+.guest-box p {
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+#guestName {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.main-button {
+  border: 1px solid white;
+  padding: 13px 30px;
+  color: white;
+  background: rgba(0,0,0,.3); 
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* TOMBOL INSTAGRAM & LOKASI */
+.instagram-buttons {
+  position: absolute;
+  top: var(--instagram-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px;
+  z-index: 3;
+}
+
+.feature-button {
+  padding: 12px 20px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  background: rgba(0,0,0,.4);
+  font-size: 13px;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+}
+
+/* COUNTDOWN */
+.countdown {
+  position: absolute;
+  top: var(--countdown-top);
+  left: var(--countdown-left);
+  transform: translate(-50%, -50%);
+  width: var(--countdown-width);
+  color: white;
+  text-shadow: 0 2px 5px black;
+  text-align: center;
+  z-index: 3;
+}
+
+.countdown h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.time-box {
+  min-width: 55px;
+  padding: 8px 4px;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 8px;
+}
+
+.time-box strong {
+  display: block;
+  font-size: 20px;
+}
+
+.time-box span {
+  font-size: 9px;
+}
+
+/* RSVP BOX */
+.rsvp-box {
+  position: absolute;
+  top: var(--rsvp-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92%, 420px);
+  max-height: 85%;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(255,255,255,.4);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  color: var(--text-color);
+  text-align: center;
+  z-index: 3;
+}
+
+.rsvp-box h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.rsvp-box p {
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+
+.rsvp-box input,
+.rsvp-box select,
+.rsvp-box textarea {
+  display: block;
+  width: 100%;
+  padding: 9px;
+  margin: 6px 0;
+  border: 1px solid rgba(0,0,0,.4);
+  background: rgba(255,255,255,.85);
+  border-radius: 5px;
+  color: black;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.rsvp-box button {
+  background: rgba(0,0,0,.85);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#formStatus {
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.comment-container {
+  margin-top: 12px;
+  max-height: 140px;
+  overflow-y: auto;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.comment-item {
+  padding: 6px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  font-size: 11px;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-name {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.comment-status {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: white;
+}
+
+.status-hadir { background: #2e7d32; }
+.status-tidak { background: #c62828; }
+
+.comment-text {
+  color: #333;
+  word-break: break-word;
+}
+
+/* LOKASI BUTTON */
+.location-button {
+  position: absolute;
+  top: var(--location-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* GALERI */
+.gallery-box {
+  position: absolute;
+  top: var(--gallery-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-height: 85%;
+  overflow-y: auto;
+  padding: 12px;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  text-align: center;
+  z-index: 3;
+}
+
+.gallery-box h2 {
+  color: white;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox img {
+  max-width: 92%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+.lightbox.active { display: flex; }
+
+/* TOMBOL MUSIK FLOATING */
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+.slide-number {
+  position: absolute;
+  bottom: 13px;
+  right: 15px;
+  z-index: 5;
+  color: white;
+  font-size: 10px;
+  opacity: .7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO MUSIK UNDANGAN -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="Sound.mp3" type="audio/mpeg">
+</audio>
+
+<!-- TOMBOL MUSIK FLOATING -->
+<button class="music-control" id="musicBtn" onclick="toggleMusic()" title="Play/Pause Musik">
+  🎵
+</button>
+
+<div id="invitation">
+
+  <!-- SLIDE 1: COVER -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="ya.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <div class="guest-box">
+        <p>Kepada Yth.</p>
+        <h1 id="guestName">Tamu Undangan</h1>
+        <button class="main-button" onclick="openInvitation()">
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+    <span class="slide-number">01 / 08</span>
+  </section>
+
+  <!-- SLIDE 2: PROFIL MEMPELAI -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="01.mp4" type="video/mp4">
+    </video>
+    <div class="instagram-buttons">
+      <a class="feature-button" href="https://www.instagram.com/_yesheka" target="_blank">@_yesheka</a>
+      <a class="feature-button" href="https://www.instagram.com/liii_mhmmd" target="_blank">@lii_mhmmd</a>
+    </div>
+    <span class="slide-number">02 / 08</span>
+  </section>
+
+  <!-- SLIDE 3: 3.mp4 -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="3.mp4" type="video/mp4">
+    </video>
+    <span class="slide-number">03 / 08</span>
+  </section>
+
+  <!-- SLIDE 4: COUNTDOWN -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="4.mp4" type="video/mp4">
+    </video>
+    <div class="countdown">
+      <h3>Hitung Mundur Acara</h3>
+      <div class="timer">
+        <div class="time-box">
+          <strong id="days">00</strong>
+          <span>HARI</span>
+        </div>
+        <div class="time-box">
+          <strong id="hours">00</strong>
+          <span>JAM</span>
+        </div>
+        <div class="time-box">
+          <strong id="minutes">00</strong>
+          <span>MENIT</span>
+        </div>
+        <div class="time-box">
+          <strong id="seconds">00</strong>
+          <span>DETIK</span>
+        </div>
+      </div>
+    </div>
+    <span class="slide-number">04 / 08</span>
+  </section>
+
+  <!-- SLIDE 5: LOKASI -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="6.mp4" type="video/mp4">
+    </video>
+    <a href="https://goo.gl/maps/6TXkq95iap6mLPnG8" target="_blank" class="feature-button location-button">
+      📍 Petunjuk Lokasi (Google Maps)
+    </a>
+    <span class="slide-number">05 / 08</span>
+  </section>
+
+  <!-- SLIDE 6: 5.mp4 -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="5.mp4" type="video/mp4">
+    </video>
+    <span class="slide-number">06 / 08</span>
+  </section>
+
+  <!-- SLIDE 7: RSVP & UCAPAN -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="8.mp4" type="video/mp4">
+    </video>
+    <div class="rsvp-box">
+      <h2>RSVP & Ucapan</h2>
+      <p>Konfirmasi kehadiran & sampaikan doa terbaik.</p>
+
+      <form id="rsvpForm" action="https://rsvp-feature.netlify.app" method="POST">
+        <input type="text" name="nama" placeholder="Nama lengkap" required>
+        <select name="kehadiran" required>
+          <option value="">Konfirmasi Kehadiran</option>
+          <option value="Hadir">InsyaAllah hadir</option>
+          <option value="Tidak Hadir">Mohon maaf, tidak dapat hadir</option>
+        </select>
+        <input type="number" name="jumlah" placeholder="Jumlah orang" min="1" max="10">
+        <textarea name="ucapan" rows="3" placeholder="Tuliskan doa dan ucapan..." required></textarea>
+        <button type="submit">Kirim Ucapan</button>
+        <div id="formStatus"></div>
+      </form>
+
+      <div class="comment-container" id="commentList">
+        <div class="comment-item">
+          <span class="comment-text" style="color: #777; text-align: center; display: block;">Memuat ucapan...</span>
+        </div>
+      </div>
+    </div>
+    <span class="slide-number">07 / 08</span>
+  </section>
+
+  <!-- SLIDE 8: GALERI FOTO -->
+  <section class="slide">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="9.mp4" type="video/mp4">
+    </video>
+    <div class="gallery-box">
+      <h2>Galeri Foto</h2>
+      <div class="gallery-grid">
+        <img src="Banjar1.jpg" onclick="showImage(this.src)" alt="Foto 1">
+        <img src="Banjar2.jpg" onclick="showImage(this.src)" alt="Foto 2">
+        <img src="Banjar3.jpg" onclick="showImage(this.src)" alt="Foto 3">
+        <img src="Banjar4.jpg" onclick="showImage(this.src)" alt="Foto 4">
+        <img src="Banjar 5.jpg" onclick="showImage(this.src)" alt="Foto 5">
+        <img src="Banjar6.jpg" onclick="showImage(this.src)" alt="Foto 6">
+        <img src="Banjar7.jpg" onclick="showImage(this.src)" alt="Foto 7">
+        <img src="Banja8.jpg" onclick="showImage(this.src)" alt="Foto 8">
+        <img src="Banjar9.jpg" onclick="showImage(this.src)" alt="Foto 9">
+        <img src="Banjar10.jpg" onclick="showImage(this.src)" alt="Foto 10">
+        <img src="Sek.jpg" onclick="showImage(this.src)" alt="Foto Sek">
+        <img src="Tungku.jpg" onclick="showImage(this.src)" alt="Foto Tungku">
+        <img src="Guw.jpg" onclick="showImage(this.src)" alt="Foto Guw">
+        <img src="20260914_234617_184.jpg" onclick="showImage(this.src)" alt="Foto 2026">
+      </div>
+    </div>
+    <span class="slide-number">08 / 08</span>
+  </section>
+
+</div>
+
+<!-- LIGHTBOX PEMBESAR FOTO -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightboxImage" alt="Preview Foto">
+</div>
+
+<script>
+/* MUSIK */
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+function playAudio() {
+  music.play().then(() => {
+    musicBtn.textContent = "🎵";
+  }).catch(() => {
+    musicBtn.textContent = "🔇";
+  });
+}
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    musicBtn.textContent = "🎵";
+  } else {
+    music.pause();
+    musicBtn.textContent = "🔇";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadComments();
+});
+
+document.addEventListener("click", function startOnFirstClick() {
+  if (music.paused) {
+    playAudio();
+  }
+  document.removeEventListener("click", startOnFirstClick);
+}, { once: true });
+
+/* TAMU UNDANGAN */
+const params = new URLSearchParams(window.location.search);
+const guest = params.get("to");
+document.getElementById("guestName").textContent = guest ? decodeURIComponent(guest.replace(/\+/g, " ")) : "Tamu Undangan";
+
+/* BUKA UNDANGAN */
+function openInvitation() {
+  playAudio();
+  const invitation = document.getElementById("invitation");
+  invitation.scrollTo({
+    top: window.innerHeight,
+    behavior: "smooth"
+  });
+}
+
+/* COUNTDOWN ACARA (21 NOVEMBER 2026) */
+const weddingDate = new Date("2026-11-21T08:00:00+07:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  if (distance <= 0) {
+    ["days", "hours", "minutes", "seconds"].forEach(id => {
+      document.getElementById(id).textContent = "00";
+    });
+    return;
+  }
+
+  document.getElementById("days").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+  document.getElementById("hours").textContent = String(Math.floor((distance / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+  document.getElementById("minutes").textContent = String(Math.floor((distance / (1000 * 60)) % 60)).padStart(2, '0');
+  document.getElementById("seconds").textContent = String(Math.floor((distance / 1000) % 60)).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* RSVP & KOMENTAR */
+const RSVP_ENDPOINT = "https://rsvp-feature.netlify.app";
+
+async function loadComments() {
+  const commentList = document.getElementById("commentList");
+  try {
+    const response = await fetch(RSVP_ENDPOINT);
+    const data = await response.json();
+
+    if (data && data.length > 0) {
+      commentList.innerHTML = "";
+      data.reverse().forEach(item => {
+        const isHadir = item.kehadiran === "Hadir";
+        const badgeClass = isHadir ? "status-hadir" : "status-tidak";
+        const html = `
+          <div class="comment-item">
+            <div class="comment-name">
+              <span>${escapeHtml(item.nama)}</span>
+              <span class="comment-status ${badgeClass}">${escapeHtml(item.kehadiran)}</span>
+            </div>
+            <div class="comment-text">${escapeHtml(item.ucapan)}</div>
+          </div>
+        `;
+        commentList.innerHTML += html;
+      });
+    } else {
+      commentList.innerHTML = '<div class="comment-item"><span class="comment-text" style="color: #777; text-align: center; display: block;">Belum ada ucapan. Jadilah yang pertama!</span></div>';
+    }
+  } catch (error) {
+    commentList.innerHTML = '<div class="comment-item"><span class="comment-text" style="color: #777; text-align: center; display: block;">Kirim RSVP untuk melihat ucapan langsung.</span></div>';
+  }
+}
+
+function escapeHtml(text) {
+  if (!text) return "";
+  return text.replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+}
+
+document.getElementById("rsvpForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const status = document.getElementById("formStatus");
+  const formData = new FormData(this);
+  const dataObj = Object.fromEntries(formData.entries());
+
+  status.textContent = "Sedang mengirim...";
+
+  try {
+    const response = await fetch(RSVP_ENDPOINT, {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    });
+
+    if (response.ok || response.type === "opaque") {
+      status.textContent = "Terima kasih atas ucapan dan doa Anda!";
+      this.reset();
+      
+      const commentList = document.getElementById("commentList");
+      if (commentList.innerHTML.includes("Belum ada ucapan") || commentList.innerHTML.includes("Memuat ucapan")) {
+        commentList.innerHTML = "";
+      }
+      
+      const isHadir = dataObj.kehadiran === "Hadir";
+      const badgeClass = isHadir ? "status-hadir" : "status-tidak";
+      
+      const newCommentHtml = `
+        <div class="comment-item">
+          <div class="comment-name">
+            <span>${escapeHtml(dataObj.nama)}</span>
+            <span class="comment-status ${badgeClass}">${escapeHtml(dataObj.kehadiran)}</span>
+          </div>
+          <div class="comment-text">${escapeHtml(dataObj.ucapan)}</div>
+        </div>
+      `;
+      commentList.insertAdjacentHTML('afterbegin', newCommentHtml);
+    } else {
+      status.textContent = "Gagal mengirim. Silakan coba kembali.";
+    }
+  } catch(error) {
+    status.textContent = "Terima kasih! Konfirmasi dan ucapan Anda telah terkirim.";
+    this.reset();
+  }
+});
+
+/* GALERI LIGHTBOX */
+function showImage(src) {
+  document.getElementById("lightboxImage").src = src;
+  document.getElementById("lightbox").classList.add("active");
+}
+</script>
+
+</body>
+</html>
